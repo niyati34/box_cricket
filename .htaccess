@@ -1,0 +1,22 @@
+RewriteEngine On
+RewriteBase /box_cricket/
+
+# Redirect /index to / (optional, for cleanliness)
+RewriteRule ^index/?$ /box_cricket/ [L,R=301]
+
+# Pretty URLs for main pages
+RewriteRule ^grounds/?$ grounds.php [L]
+RewriteRule ^ground/([0-9]+)/?$ ground.php?id=$1 [L]
+RewriteRule ^login/?$ login.php [L]
+RewriteRule ^register/?$ register.php [L]
+RewriteRule ^my_bookings/?$ my_bookings.php [L]
+RewriteRule ^logout/?$ logout.php [L]
+RewriteRule ^make_booking/?$ make_booking.php [L]
+
+# Verify QR pretty URL
+RewriteRule ^verify_qr/?$ verify_qr.php [L]
+
+# Fallback: if file or directory does not exist, try .php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-zA-Z0-9_]+)/?$ $1.php [L]
