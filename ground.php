@@ -6,12 +6,12 @@ $date = $_GET['date'] ?? date('Y-m-d');
 // validate date to prevent incorrect filtering
 $dt = DateTime::createFromFormat('Y-m-d', $date);
 if (!$dt || $dt->format('Y-m-d') !== $date) { $date = date('Y-m-d'); }
-if ($ground_id <= 0) { header('Location: grounds.php'); exit; }
+if ($ground_id <= 0) { header('Location: grounds'); exit; }
 
 $stmt = $pdo->prepare('SELECT * FROM grounds WHERE id = ? AND is_active = 1');
 $stmt->execute([$ground_id]);
 $ground = $stmt->fetch();
-if (!$ground) { header('Location: grounds.php'); exit; }
+if (!$ground) { header('Location: grounds'); exit; }
 
 $slots = $pdo->prepare('SELECT * FROM time_slots WHERE ground_id = ? AND is_active = 1 ORDER BY start_time');
 $slots->execute([$ground_id]);
@@ -32,7 +32,11 @@ include __DIR__ . '/partials/header.php';
 		<!-- Ground Header -->
 		<div class="card mb-8 text-center">
 			<div class="w-full h-64 bg-gradient-to-br from-emerald-100 to-emerald-200 rounded-lg flex items-center justify-center mb-6">
-				<div class="text-8xl">🏟️</div>
+				<?php if (!empty($ground['image_path'])): ?>
+					<img src="<?php echo htmlspecialchars($ground['image_path']); ?>" alt="<?php echo htmlspecialchars($ground['name']); ?>" style="width:100%;height:100%;object-fit:cover;border-radius:10px;" />
+				<?php else: ?>
+					<div class="text-8xl">🏟️</div>
+				<?php endif; ?>
 			</div>
 			<h1 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4"><?php echo htmlspecialchars($ground['name']); ?></h1>
 			<?php if (!empty($ground['description'])): ?>
@@ -53,7 +57,7 @@ include __DIR__ . '/partials/header.php';
 		<!-- Booking Form -->
 		<div class="card">
 			<h2 class="text-2xl font-bold text-slate-800 mb-6 text-center">Book Your Slot</h2>
-			<form method="post" action="make_booking.php" class="space-y-6">
+			<form method="post" action="<?php echo BASE_URL; ?>/make_booking" class="space-y-6">
 				<input type="hidden" name="csrf_token" value="<?php echo csrf_token(); ?>">
 				<input type="hidden" name="ground_id" value="<?php echo (int)$ground['id']; ?>">
 				
@@ -79,6 +83,7 @@ include __DIR__ . '/partials/header.php';
 											<div class="text-center">
 												<div class="text-2xl mb-2">🔒</div>
 												<p class="font-medium text-slate-600"><?php echo substr($s['start_time'],0,5); ?> - <?php echo substr($s['end_time'],0,5); ?></p>
+												<p class="text-sm text-slate-500 mb-2"><?php echo $s['hours_per_slot']; ?> hours</p>
 												<span class="inline-block <?php echo $isPastTime ? 'bg-amber-100 text-amber-800' : 'bg-red-100 text-red-800'; ?> text-xs px-2 py-1 rounded-full mt-2"><?php echo $isPastTime ? 'Past' : 'Booked'; ?></span>
 											</div>
 										</div>
@@ -88,6 +93,8 @@ include __DIR__ . '/partials/header.php';
 											<div class="text-center">
 												<div class="text-2xl mb-2">⏰</div>
 												<p class="font-medium text-slate-700"><?php echo substr($s['start_time'],0,5); ?> - <?php echo substr($s['end_time'],0,5); ?></p>
+												<p class="text-sm text-slate-500 mb-2"><?php echo $s['hours_per_slot']; ?> hours</p>
+												<p class="text-lg font-bold text-emerald-600">₹<?php echo number_format($ground['price_per_hour'] * $s['hours_per_slot'], 2); ?></p>
 												<span class="inline-block bg-emerald-100 text-emerald-800 text-xs px-2 py-1 rounded-full mt-2">Available</span>
 											</div>
 										</label>
@@ -112,10 +119,9 @@ include __DIR__ . '/partials/header.php';
 		var dateInput = document.getElementById('date');
 		if (dateInput) {
 			dateInput.addEventListener('change', function(){
-				var params = new URLSearchParams(window.location.search);
-				params.set('id', '<?php echo (int)$ground['id']; ?>');
-				params.set('date', this.value);
-				window.location.href = 'ground.php?' + params.toString();
+				var newDate = this.value;
+				var url = '<?php echo BASE_URL; ?>/ground.php?id=<?php echo (int)$ground['id']; ?>&date=' + encodeURIComponent(newDate);
+				window.location.href = url;
 			});
 		}
 	})();

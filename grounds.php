@@ -24,7 +24,7 @@ include __DIR__ . '/partials/header.php';
 	</div>
 
 	<div class="card max-w-4xl mx-auto mb-8">
-		<form method="get" action="grounds.php" class="space-y-4">
+		<form method="get" action="grounds" class="space-y-4">
 			<div class="grid gap-4 grid-cols-1 md:grid-cols-3">
 				<div class="field">
 					<label for="date" class="text-slate-700 font-semibold">📅 Play Date</label>
@@ -69,7 +69,7 @@ include __DIR__ . '/partials/header.php';
 					<?php if (!empty($g['description'])): ?>
 						<p class="text-slate-500 text-sm mb-4 line-clamp-2"><?php echo htmlspecialchars($g['description']); ?></p>
 					<?php endif; ?>
-					<a class="btn w-full text-center group-hover:scale-105 transition-transform" href="ground.php?id=<?php echo (int)$g['id']; ?><?php echo $date ? '&date=' . urlencode($date) : ''; ?>">
+					<a class="btn w-full text-center group-hover:scale-105 transition-transform" href="ground/<?php echo (int)$g['id']; ?><?php echo $date ? '?date=' . urlencode($date) : ''; ?>">
 						🎯 View Available Slots
 					</a>
 				</div>
