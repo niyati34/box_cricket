@@ -1,6 +1,13 @@
 <?php
 // Basic configuration for database and app settings
 
+// Load PHPMailer if available
+if (file_exists(__DIR__ . '/lib/autoload.php')) {
+    require_once __DIR__ . '/lib/autoload.php';
+} elseif (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
+}
+
 define('DB_HOST', '127.0.0.1');
 define('DB_NAME', 'box_cricket');
 define('DB_USER', 'root');
