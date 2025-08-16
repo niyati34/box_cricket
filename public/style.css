@@ -102,8 +102,81 @@ body {
 }
 .btn.danger:hover { 
 	background: linear-gradient(135deg, #dc2626, #b91c1c);
-	box-shadow: 0 8px 25px 0 rgba(239, 68, 68, 0.5);
+	box-shadow: 0 8px 25px 0 rgba(220, 38, 38, 0.5);
 }
+.btn.small, .btn-sm { 
+	padding: 8px 16px; 
+	font-size: 12px; 
+	border-radius: 8px;
+}
+.btn:disabled { 
+	opacity: 0.6; 
+	cursor: not-allowed; 
+	transform: none !important; 
+	box-shadow: none !important;
+}
+
+/* Badges */
+.badge { 
+	display: inline-block; 
+	padding: 4px 8px; 
+	border-radius: 6px; 
+	font-size: 12px; 
+	font-weight: 600; 
+	text-transform: uppercase; 
+	letter-spacing: 0.5px;
+}
+.badge.success { 
+	background: #dcfce7; 
+	color: #166534; 
+	border: 1px solid #bbf7d0;
+}
+.badge.error { 
+	background: #fee2e2; 
+	color: #991b1b; 
+	border: 1px solid #fecaca;
+}
+.badge.pending { 
+	background: #fef3c7; 
+	color: #92400e; 
+	border: 1px solid #fde68a;
+}
+
+/* Grid Layouts */
+.grid { display: grid; }
+.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.gap-2 { gap: 0.5rem; }
+.gap-4 { gap: 1rem; }
+.gap-6 { gap: 1.5rem; }
+
+/* Availability Checker */
+.bg-green-50 { background-color: #f0fdf4; }
+.bg-red-50 { background-color: #fef2f2; }
+.border-green-200 { border-color: #bbf7d0; }
+.border-red-200 { border-color: #fecaca; }
+.text-green-800 { color: #166534; }
+.text-red-800 { color: #991b1b; }
+.text-green-700 { color: #15803d; }
+.text-slate-500 { color: #64748b; }
+.text-slate-600 { color: #475569; }
+
+/* Additional Text Colors */
+.text-green-600 { color: #16a34a; }
+.text-slate-400 { color: #94a3b8; }
+
+/* Utility Classes */
+.mb-3 { margin-bottom: 0.75rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-3 { margin-top: 0.75rem; }
+.mt-8 { margin-top: 2rem; }
+.p-3 { padding: 0.75rem; }
+.max-w-2xl { max-width: 42rem; }
+.max-w-xl { max-width: 36rem; }
+.overflow-x-auto { overflow-x: auto; }
 
 /* Forms */
 form .field { margin-bottom: 20px; }
@@ -116,7 +189,7 @@ label {
 }
 input, select, textarea { 
 	width: 100%; 
-	padding: 12px 16px; 
+	padding: 12px 16px !important; 
 	border: 2px solid #e5e7eb; 
 	border-radius: 12px; 
 	font-size: 14px;
@@ -537,4 +610,348 @@ button:focus, a:focus, input:focus, select:focus, textarea:focus {
 	outline: none;
 	box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
 	border-color: #10b981;
+}
+
+/* Map View Styles */
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 0.875rem;
+    border-radius: 6px;
+}
+
+.map-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.map-iframe {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s ease;
+}
+
+.map-iframe.loading {
+    opacity: 0.7;
+}
+
+.map-info-card {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 16px;
+}
+
+.map-info-card h3 {
+    color: #1e293b;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.map-info-card p {
+    color: #64748b;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.map-view-options {
+    background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+    border: 1px solid #a7f3d0;
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 16px;
+}
+
+.map-view-options h3 {
+    color: #065f46;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.map-controls-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.map-controls-grid ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.map-controls-grid li {
+    padding: 4px 0;
+    color: #065f46;
+    font-size: 0.875rem;
+}
+
+.map-controls-grid li:before {
+    content: "•";
+    color: #10b981;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+/* 3D Map Specific Styles */
+.map-3d-container {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.map-3d-header {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    padding: 16px 20px;
+    border-bottom: 1px solid #cbd5e1;
+}
+
+.map-3d-content {
+    height: 600px;
+    position: relative;
+}
+
+.map-3d-footer {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    padding: 16px 20px;
+    border-top: 1px solid #cbd5e1;
+}
+
+/* Responsive Map Controls */
+@media (max-width: 768px) {
+    .map-controls {
+        flex-direction: column;
+    }
+    
+    .map-controls-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .map-3d-content {
+        height: 400px;
+    }
+}
+
+/* Map Loading Animation */
+.map-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: #64748b;
+}
+
+.map-loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #e2e8f0;
+    border-top: 4px solid #10b981;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* PWA Specific Styles */
+.pwa-install-prompt {
+    animation: slideUp 0.3s ease-out;
+}
+
+.pwa-install-prompt.hidden {
+    display: none !important;
+}
+
+.offline-indicator {
+    animation: slideDown 0.3s ease-out;
+}
+
+.offline-indicator.hidden {
+    display: none !important;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* PWA App-like styles */
+@media (display-mode: standalone) {
+    body {
+        /* Remove browser UI when in standalone mode */
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .site-header {
+        /* Add safe area padding for notched devices */
+        padding-top: env(safe-area-inset-top);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
+    
+    main {
+        /* Add safe area padding for notched devices */
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+/* PWA Install Button Styles */
+.pwa-install-btn {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pwa-install-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.pwa-install-btn:active {
+    transform: translateY(0);
+}
+
+/* PWA Toast Notifications */
+.pwa-toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    animation: slideInRight 0.3s ease-out;
+    max-width: 300px;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.pwa-toast.success {
+    border-left: 4px solid #10b981;
+}
+
+.pwa-toast.error {
+    border-left: 4px solid #ef4444;
+}
+
+.pwa-toast.info {
+    border-left: 4px solid #3b82f6;
+}
+
+/* PWA Loading States */
+.pwa-loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #10b981;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* PWA Responsive Design */
+@media (max-width: 640px) {
+    .pwa-install-prompt {
+        left: 8px;
+        right: 8px;
+        bottom: 8px;
+    }
+    
+    .offline-indicator {
+        left: 8px;
+        right: 8px;
+        top: 80px;
+    }
+    
+    .pwa-toast {
+        left: 8px;
+        right: 8px;
+        top: 8px;
+        max-width: none;
+    }
+}
+
+/* PWA Touch Targets */
+.pwa-touch-target {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* PWA Focus States */
+.pwa-install-btn:focus,
+.pwa-dismiss-btn:focus {
+    outline: 2px solid #10b981;
+    outline-offset: 2px;
+}
+
+/* PWA High Contrast Mode */
+@media (prefers-contrast: high) {
+    .pwa-install-prompt {
+        border: 2px solid #000;
+    }
+    
+    .offline-indicator {
+        border: 2px solid #000;
+    }
+}
+
+/* PWA Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .pwa-install-prompt,
+    .offline-indicator,
+    .pwa-toast {
+        animation: none;
+    }
+    
+    .pwa-loading {
+        animation: none;
+    }
 }
