@@ -17,14 +17,21 @@ if ($ground_id <= 0 || $slot_id <= 0 || !$play_date) {
 
 $pdo->beginTransaction();
 try {
+	// Re-verify user exists and is active to avoid FK issues
+	$stmt = $pdo->prepare('SELECT id FROM users WHERE id = ? AND is_active = 1 FOR UPDATE');
+	$stmt->execute([(int)($user['id'] ?? 0)]);
+	$dbUser = $stmt->fetch();
+	if (!$dbUser) { throw new Exception('User session invalid. Please login again.'); }
+	$user_id = (int)$dbUser['id'];
+
 	// Verify ground and get price
 	$stmt = $pdo->prepare('SELECT id, price_per_hour FROM grounds WHERE id = ? AND is_active = 1 FOR UPDATE');
 	$stmt->execute([$ground_id]);
 	$ground = $stmt->fetch();
 	if (!$ground) { throw new Exception('Ground not available'); }
 
-	// Verify slot
-	$stmt = $pdo->prepare('SELECT id FROM time_slots WHERE id = ? AND ground_id = ? AND is_active = 1 FOR UPDATE');
+	// Verify slot and get hours
+	$stmt = $pdo->prepare('SELECT id, hours_per_slot FROM time_slots WHERE id = ? AND ground_id = ? AND is_active = 1 FOR UPDATE');
 	$stmt->execute([$slot_id, $ground_id]);
 	$slot = $stmt->fetch();
 	if (!$slot) { throw new Exception('Slot not available'); }
@@ -36,16 +43,16 @@ try {
 	if ($exists) { throw new Exception('Slot already booked'); }
 
 	// Create booking as pending; admins will approve/reject
-	$total = (float)$ground['price_per_hour'];
+	$total = (float)$ground['price_per_hour'] * (float)$slot['hours_per_slot'];
 	$stmt = $pdo->prepare('INSERT INTO bookings (user_id, ground_id, slot_id, play_date, total_amount, status) VALUES (?, ?, ?, ?, ?, "pending")');
-	$stmt->execute([$user['id'], $ground_id, $slot_id, $play_date, $total]);
+	$stmt->execute([$user_id, $ground_id, $slot_id, $play_date, $total]);
 	$pdo->commit();
 	flash('success', 'Booking requested. Awaiting admin approval.');
 	header('Location: ' . BASE_URL . '/my_bookings.php');
 } catch (Exception $e) {
 	$pdo->rollBack();
 	flash('error', $e->getMessage());
-	header('Location: ' . BASE_URL . '/ground.php?id=' . $ground_id . '&date=' . urlencode($play_date));
+	header('Location: ' . BASE_URL . '/ground/' . $ground_id . '?date=' . urlencode($play_date));
 }
 exit;
 
