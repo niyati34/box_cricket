@@ -1,0 +1,14 @@
+{
+    "name": "box-cricket/booking-system",
+    "description": "Box Cricket Ground Booking System",
+    "type": "project",
+    "require": {
+        "php": ">=7.4",
+        "phpmailer/phpmailer": "^6.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "PHPMailer\\PHPMailer\\": "vendor/phpmailer/phpmailer/src/"
+        }
+    }
+}
