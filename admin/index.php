@@ -16,6 +16,21 @@ include __DIR__ . '/../partials/header.php';
 			<p>View and manage bookings.</p>
 			<a class="btn mt-2" href="bookings.php">Open</a>
 		</div>
+		<div class="card">
+			<h3 class="text-lg font-semibold">Offline Bookings</h3>
+			<p>Add manual bookings for walk-in customers.</p>
+			<a class="btn mt-2" href="offline_bookings.php">Open</a>
+		</div>
+		<div class="card">
+			<h3 class="text-lg font-semibold">Check-in Users</h3>
+			<p>Search and check-in users quickly.</p>
+			<a class="btn mt-2" href="checkin.php">Open</a>
+		</div>
+		<div class="card">
+			<h3 class="text-lg font-semibold">Time Slots</h3>
+			<p>Manage time slots for grounds.</p>
+			<a class="btn mt-2" href="slots.php">Open</a>
+		</div>
 	</div>
 
 <?php include __DIR__ . '/../partials/footer.php'; ?>

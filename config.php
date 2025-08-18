@@ -1,6 +1,13 @@
 <?php
 // Basic configuration for database and app settings
 
+// Load PHPMailer if available
+if (file_exists(__DIR__ . '/lib/autoload.php')) {
+    require_once __DIR__ . '/lib/autoload.php';
+} elseif (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
+}
+
 define('DB_HOST', '127.0.0.1');
 define('DB_NAME', 'box_cricket');
 define('DB_USER', 'root');
@@ -48,6 +55,13 @@ function require_role($roles) {
     if (!in_array($user['role'], $roles, true)) {
         http_response_code(403);
         echo 'Forbidden';
+        exit;
+    }
+}
+
+function require_login() {
+    if (!is_logged_in()) {
+        header('Location: ' . BASE_URL . '/login.php');
         exit;
     }
 }
