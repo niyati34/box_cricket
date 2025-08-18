@@ -78,7 +78,13 @@ function verify_csrf() {
         $token = $_POST['csrf_token'] ?? '';
         if (!hash_equals($_SESSION['csrf_token'] ?? '', $token)) {
             http_response_code(400);
-            echo 'Invalid CSRF token';
+            // User-friendly error page
+            echo '<!DOCTYPE html><html><head><title>Invalid CSRF Token</title></head><body style="font-family:sans-serif;text-align:center;padding:2em;">';
+            echo '<h2 style="color:#b91c1c;">Invalid or expired security token</h2>';
+            echo '<p>Your session may have expired or you submitted an old form.</p>';
+            echo '<a href="' . htmlspecialchars($_SERVER['REQUEST_URI']) . '" style="color:#2563eb;text-decoration:underline;font-weight:bold;">Reload this page</a> to try again.';
+            echo '<br><br><a href="' . BASE_URL . '/login.php" style="color:#2563eb;">Go to Login</a>';
+            echo '</body></html>';
             exit;
         }
     }
