@@ -17,7 +17,7 @@ header('Pragma: no-cache'); ?>
 <body class="bg-slate-50">
 	<header class="site-header sticky top-0 z-40">
 		<div class="container max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-			<a href="<?php echo BASE_URL; ?>/" class="logo text-white text-xl font-bold transition-transform hover:scale-[1.02]"><?php echo APP_NAME; ?></a>
+			<a href="<?php echo BASE_URL; ?>/" class="logo text-white text-xl font-bold transition-transform hover:scale-[1.02]">&nbsp;<?php echo APP_NAME; ?></a>
 			<nav>
 				<ul class="flex items-center gap-3 md:gap-5 flex-wrap">
 					<li><a class="hover:text-white transition-opacity hover:opacity-100 opacity-90" href="<?php echo BASE_URL; ?>/grounds">Grounds</a></li>
@@ -47,24 +47,24 @@ header('Pragma: no-cache'); ?>
 		<?php if ($msg = flash('success')): ?><div class="alert success"><?php echo htmlspecialchars($msg); ?></div><?php endif; ?>
 		<?php if ($msg = flash('error')): ?><div class="alert error"><?php echo htmlspecialchars($msg); ?></div><?php endif; ?>
 <script>
-  // Auto-dismiss alerts after 2 seconds
-  document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(function() {
-      document.querySelectorAll('.alert').forEach(function(alert) {
-        alert.style.transition = 'opacity 0.5s';
-        alert.style.opacity = '0';
-        setTimeout(function() { alert.style.display = 'none'; }, 500);
-      });
-    }, 2000);
-  });
+	// Auto-dismiss alerts after 2 seconds
+	document.addEventListener('DOMContentLoaded', function() {
+		setTimeout(function() {
+			document.querySelectorAll('.alert').forEach(function(alert) {
+				alert.style.transition = 'opacity 0.5s';
+				alert.style.opacity = '0';
+				setTimeout(function() { alert.style.display = 'none'; }, 500);
+			});
+		}, 2000);
+	});
 </script>
 <script>
 // Force reload after logout to clear cached UI
 if (window.location.pathname.endsWith('/index.php') || window.location.pathname === '<?php echo BASE_URL; ?>/' || window.location.pathname === '<?php echo BASE_URL; ?>') {
-  if (performance && performance.getEntriesByType('navigation')[0].type === 'reload') {
-    // If the page was reloaded, do nothing
-  } else if (document.referrer && document.referrer.includes('/logout')) {
-    window.location.reload(true); // Force reload from server
-  }
+	if (performance && performance.getEntriesByType('navigation')[0].type === 'reload') {
+		// If the page was reloaded, do nothing
+	} else if (document.referrer && document.referrer.includes('/logout')) {
+		window.location.reload(true); // Force reload from server
+	}
 }
 </script>
