@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS time_slots (
     ground_id INT UNSIGNED NOT NULL,
     start_time TIME NOT NULL,
     end_time TIME NOT NULL,
+    hours_per_slot DECIMAL(3,1) NOT NULL DEFAULT 1.0,
     is_active TINYINT(1) NOT NULL DEFAULT 1,
     CONSTRAINT fk_slots_ground FOREIGN KEY (ground_id) REFERENCES grounds(id) ON DELETE CASCADE,
     UNIQUE KEY uniq_slot (ground_id, start_time, end_time)
@@ -53,6 +54,8 @@ CREATE TABLE IF NOT EXISTS bookings (
     play_date DATE NOT NULL,
     total_amount DECIMAL(10,2) NOT NULL,
     status ENUM('pending','confirmed','cancelled') NOT NULL DEFAULT 'pending',
+    qr_token VARCHAR(64) NULL UNIQUE,
+    checked_in_at DATETIME NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_booking_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     CONSTRAINT fk_booking_ground FOREIGN KEY (ground_id) REFERENCES grounds(id) ON DELETE CASCADE,
