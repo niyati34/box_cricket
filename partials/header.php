@@ -1,12 +1,15 @@
-<?php require_once __DIR__ . '/../config.php'; ?>
+<?php require_once __DIR__ . '/../config.php';
+// Prevent browser caching of logged-in state
+header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+header('Expires: 0');
+header('Pragma: no-cache'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title><?php echo APP_NAME; ?></title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<meta name="description" content="Book box cricket grounds easily with 3D maps and real-time availability">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="<?php echo BASE_URL; ?>/public/style.css">
 	<script src="https://cdn.tailwindcss.com"></script>
@@ -20,6 +23,7 @@
 					<li><a class="hover:text-white transition-opacity hover:opacity-100 opacity-90" href="<?php echo BASE_URL; ?>/grounds">Grounds</a></li>
 					<?php if (is_logged_in()): $u = current_user(); ?>
 						<li><a class="hover:text-white transition-opacity hover:opacity-100 opacity-90" href="<?php echo BASE_URL; ?>/my_bookings">My Bookings</a></li>
+						<li><a class="hover:text-white transition-opacity hover:opacity-100 opacity-90" href="<?php echo BASE_URL; ?>/change_password.php">Change Password</a></li>
 						<?php if ($u['role'] === 'admin' || $u['role'] === 'superadmin'): ?>
 							<li><a class="hover:text-white transition-opacity hover:opacity-100 opacity-90" href="<?php echo BASE_URL; ?>/admin/index.php">Admin</a></li>
 						<?php endif; ?>
@@ -53,4 +57,14 @@
       });
     }, 2000);
   });
+</script>
+<script>
+// Force reload after logout to clear cached UI
+if (window.location.pathname.endsWith('/index.php') || window.location.pathname === '<?php echo BASE_URL; ?>/' || window.location.pathname === '<?php echo BASE_URL; ?>') {
+  if (performance && performance.getEntriesByType('navigation')[0].type === 'reload') {
+    // If the page was reloaded, do nothing
+  } else if (document.referrer && document.referrer.includes('/logout')) {
+    window.location.reload(true); // Force reload from server
+  }
+}
 </script>
