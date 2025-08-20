@@ -1,69 +1,114 @@
-## Box Cricket Booking (PHP + MySQL)
+# Box Cricket Booking System
 
-### Prerequisites
-- PHP 7.4+ with PDO MySQL
+[![Live Demo](https://img.shields.io/badge/Live-Demo-green?style=for-the-badge)](https://boxpro.infinityfreeapp.com/)
+
+A modern, full-featured web application for booking box cricket grounds. Built with PHP and MySQL, it offers seamless booking, role-based access, QR check-ins, and a clean, responsive UI.
+
+---
+
+## 🚀 Live Demo
+
+[https://boxpro.infinityfreeapp.com/](https://boxpro.infinityfreeapp.com/)
+
+---
+
+## 📸 Screenshots
+
+| Home Page                                     | Booking Page                                     | Admin Dashboard                                | Mobile View                                     |
+| --------------------------------------------- | ------------------------------------------------ | ---------------------------------------------- | ----------------------------------------------- |
+| ![Home](uploads/grounds/1475e69250f1875f.jpg) | ![Booking](uploads/grounds/2d98014bd1c87e9a.jpg) | ![Admin](uploads/grounds/b7b104a879c50bd3.jpg) | ![Mobile](uploads/grounds/cd357621adddd1fa.jpg) |
+
+---
+
+## 📝 Description
+
+Box Cricket Booking is a robust, secure, and user-friendly platform to manage ground bookings, users, and schedules. It supports multiple roles (User, Admin, Superadmin), real-time slot availability, QR-based check-ins, and email notifications. Designed for clubs, sports venues, and event organizers.
+
+---
+
+## ✨ Features
+
+- User registration, login, and password hashing
+- Browse grounds, view details, and book slots
+- Real-time slot availability and conflict prevention
+- Admin panel for managing grounds, slots, and bookings
+- Superadmin panel for user/role management
+- Booking confirmation emails with QR code for check-in
+- Mobile-friendly, responsive design
+- CSRF protection and secure session management
+
+---
+
+## ⚡ Quick Start
+
+1. Clone the repo and place it in your web root (e.g., `htdocs/box_cricket`).
+2. Create a MySQL database and import `schema.sql`.
+3. Update `config.php` with your DB credentials and `BASE_URL`.
+4. Access the app at `/box_cricket/index.php`.
+
+Default Superadmin:
+
+- Email: `superadmin@example.com`
+- Password: `Super@123`
+
+---
+
+## 🛠️ Tech Stack
+
+- PHP 7.4+
 - MySQL 5.7+/MariaDB 10.4+
-- Web server (XAMPP on Windows is fine)
+- PHPMailer (for email)
+- HTML5, CSS3, JavaScript
 
-### Setup
-1. Create a database `box_cricket` and import `schema.sql`.
-2. Update `config.php` DB credentials and `BASE_URL` according to your folder path (e.g., `/box_cricket`).
-3. Put the project folder under your web root (e.g., `D:/xampp/htdocs/box_cricket`).
-4. Visit `/box_cricket/index.php`.
+---
 
-### Default Access
-- Super admin (seeded):
-  - Email: `superadmin@example.com`
-  - Password: `Super@123` (change immediately)
+## 🌐 Website
 
-### Roles
-- User: Search and book slots.
-- Admin: Manage grounds, slots, and view bookings.
-- Superadmin: Manage users (create admins, toggle active, change roles).
+[https://boxpro.infinityfreeapp.com/](https://boxpro.infinityfreeapp.com/)
 
-### Key Files
-- `config.php`: DB connection, session, helpers.
-- `lib/Auth.php`: Authentication.
-- `partials/header.php`, `partials/footer.php`: Layout.
-- Public pages: `index.php`, `grounds.php`, `ground.php`, `make_booking.php`, `login.php`, `register.php`, `my_bookings.php`.
-- Admin: `admin/index.php`, `admin/grounds.php`, `admin/slots.php`, `admin/bookings.php`.
-- Super Admin: `superadmin/index.php`, `superadmin/users.php`.
+---
 
-### Notes
-- CSRF protection for all forms.
-- Passwords are hashed using bcrypt.
-- Bookings use transactions and row locks to prevent double booking.
+## 🏷️ Topics
 
-## Booking Confirmation Email + QR
+box-cricket booking php mysql qr-code admin-panel sports ground-management webapp
 
-- When an admin approves a booking, the system generates a unique `qr_token` and emails the user a confirmation with a QR code link.
-- The QR encodes `verify_qr.php?token=...` that admins can open to validate and mark check-in.
-- Admins/Superadmins can open `verify_qr.php` on mobile to scan/verify.
+---
 
-### Email Setup (PHPMailer)
+## 📦 Releases / Packages / Deployments
 
-**Option 1: Using Composer (Recommended)**
-```bash
-composer require phpmailer/phpmailer
-```
+- See [Releases](https://github.com/niyati34/box_cricket/releases) for versioned builds.
+- Packages and deployments are managed manually or via your preferred CI/CD.
 
-**Option 2: Manual Installation**
+---
+
+## 🤝 Contributing
+
+Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
+
+---
+
+## 📄 License
+
+MIT
+
 ```bash
 php install_phpmailer.php
 ```
 
 **Option 3: Download manually**
+
 - Download PHPMailer files to `lib/` directory
 - Create `lib/autoload.php` for autoloading
 
 ### Email Configuration
 
 The system uses PHPMailer with SMTP. Update `lib/Mailer.php` with your SMTP settings:
+
 - Host: Your SMTP server (e.g., smtp.gmail.com)
 - Port: SMTP port (587 for TLS, 465 for SSL)
 - Authentication: Username/password if required
 
 Notes:
+
 - Database changes: `bookings.qr_token` (unique) and `bookings.checked_in_at` were added. Run migrations if you already have a DB.
 - QR codes are generated via Google Chart API for simplicity.
-
