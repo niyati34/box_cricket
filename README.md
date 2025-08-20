@@ -16,7 +16,7 @@ A modern, full-featured web application for booking box cricket grounds. Built w
 
 | Home Page                                     | Booking Page                                     | Admin Dashboard                                | Mobile View                                     |
 | --------------------------------------------- | ------------------------------------------------ | ---------------------------------------------- | ----------------------------------------------- |
-| ![Home](uploads/grounds/1475e69250f1875f.jpg) | ![Booking](uploads/grounds/2d98014bd1c87e9a.jpg) | ![Admin](uploads/grounds/b7b104a879c50bd3.jpg) | ![Mobile](uploads/grounds/cd357621adddd1fa.jpg) |
+| <img width="1913" height="780" alt="image" src="https://github.com/user-attachments/assets/39e7fb6c-5d34-429b-b43e-e1140aa91043" /> | <img width="1907" height="908" alt="image" src="https://github.com/user-attachments/assets/a9984c3f-e5a2-4ede-abfe-e65def9a9ebd" /> | <img width="1917" height="890" alt="image" src="https://github.com/user-attachments/assets/27332e28-35bb-4380-a918-3c0afe074628" /> | <img width="462" height="747" alt="image" src="https://github.com/user-attachments/assets/414a37f0-ce47-4f4e-a2d7-ecf6c93d9a31" /> |
 
 ---
 
